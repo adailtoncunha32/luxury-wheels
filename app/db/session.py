@@ -8,6 +8,7 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
 )
 
+
 # Decorador: "sempre que o engine abrir uma ligação nova, corre esta função"
 @event.listens_for(engine, "connect")
 def enable_sqlite_foreign_keys(dbapi_connection, connection_record):
@@ -15,7 +16,9 @@ def enable_sqlite_foreign_keys(dbapi_connection, connection_record):
     cursor.execute("PRAGMA foreign_keys=ON")
     cursor.close()
 
-SessionLocal = sessionmaker(bind = engine, autoflush=False)
+
+SessionLocal = sessionmaker(bind=engine, autoflush=False)
+
 
 def obter_sessao():
     db = SessionLocal()

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block titulo %}As minhas reservas{% endblock %}
+
+{% block conteudo %}
+<h2 class="mb-4">As minhas reservas</h2>
+{% if reservas %}
+<div class="table-responsive">
+  <table class="table lw-tabela">
+    <thead>
+      <tr><th>N.º</th><th>Veículo</th><th>Datas</th><th>Pagamento</th><th>Total</th><th>Estado</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for r in reservas %}
+      <tr class="{{ 'text-muted' if r.estado.value == 'cancelada' }}">
+        <td>{{ r.id }}</td>
+        <td>{{ r.veiculo.marca }} {{ r.veiculo.modelo }}</td>
+        <td>{{ r.data_inicio|data_pt }} → {{ r.data_fim|data_pt }}</td>
+        <td>{{ r.forma_pagamento.nome }}</td>
+        <td>{{ r.valor_total_centimos|euros }}</td>
+        <td><span class="badge {{ 'badge-success' if r.estado.value == 'ativa' else 'badge-secondary' }}">{{ r.estado.value }}</span></td>
+        <td class="text-nowrap">
+          {% if r.estado.value == 'ativa' %}
+            <a class="btn btn-sm btn-outline-dark" href="/reservas/{{ r.id }}/alterar">Alterar datas</a>
+            <form method="post" action="/reservas/{{ r.id }}/cancelar" class="d-inline"
+                  onsubmit="return confirm('Cancelar a reserva n.º {{ r.id }}?');">
+              <button class="btn btn-sm btn-outline-danger">Cancelar</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+  <div class="alert alert-info">Ainda não tens reservas. <a href="/veiculos">Ver veículos</a></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,36 @@
+/* Estilos próprios do Luxury Wheels (por cima do Bootstrap 4 do template) */
+:root { --lw-dourado: #c9a14a; --lw-escuro: #15171c; }
+
+body { background: #f5f5f3; color: #222; display: flex; flex-direction: column; min-height: 100vh; }
+main { flex: 1; }
+
+.lw-nav { background: var(--lw-escuro); }
+.lw-marca { font-weight: 700; letter-spacing: .5px; }
+.lw-marca span { color: var(--lw-dourado); }
+
+.lw-btn { background: var(--lw-dourado); color: #111; border: 0; font-weight: 600; }
+.lw-btn:hover { background: #b58c37; color: #111; }
+
+.lw-hero {
+  background: linear-gradient(rgba(10,10,12,.65), rgba(10,10,12,.65)), url("/assets/images/banner.jpg") center/cover;
+  color: #fff; padding: 90px 0;
+}
+.lw-hero h1 { font-weight: 700; font-size: 2.6rem; }
+.lw-pesquisa-rapida { display: flex; flex-wrap: wrap; gap: 8px; max-width: 720px; margin-top: 24px; }
+.lw-pesquisa-rapida .form-control { flex: 1 1 200px; }
+
+.lw-vantagens i { color: var(--lw-dourado); margin-bottom: 10px; }
+
+.lw-caixa { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.lw-caixa label { font-size: .85rem; font-weight: 600; margin-bottom: 2px; }
+
+.lw-card { border: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.lw-card .card-img-top { height: 180px; object-fit: cover; background: #ddd; }
+.lw-sem-foto { visibility: hidden; }
+.lw-preco { font-size: 1.4rem; font-weight: 700; }
+.lw-preco small { font-size: .8rem; font-weight: 400; color: #777; }
+
+.lw-total th, .lw-total td { font-size: 1.25rem; font-weight: 700; }
+.lw-tabela { background: #fff; }
+
+.lw-footer { background: var(--lw-escuro); color: #aaa; padding: 18px 0; font-size: .85rem; }

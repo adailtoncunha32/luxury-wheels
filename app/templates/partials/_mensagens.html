@@ -1,0 +1,7 @@
+{# Mensagens "flash" (vêm da sessão) + erro da própria página #}
+{% for mensagem in mensagens %}
+  <div class="alert {{ 'alert-success' if mensagem.tipo == 'sucesso' else 'alert-danger' }}">{{ mensagem.texto }}</div>
+{% endfor %}
+{% if erro %}
+  <div class="alert alert-danger">{{ erro }}</div>
+{% endif %}

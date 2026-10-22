@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block titulo %}Reservar {{ veiculo.marca }} {{ veiculo.modelo }}{% endblock %}
+
+{% block conteudo %}
+<div class="row">
+  <div class="col-md-5 mb-4">
+    <div class="card lw-card">
+      <img class="card-img-top" src="{{ veiculo.imagem }}" alt="{{ veiculo.marca }} {{ veiculo.modelo }}" onerror="this.classList.add('lw-sem-foto')">
+      <div class="card-body">
+        <h4>{{ veiculo.marca }} {{ veiculo.modelo }}</h4>
+        <p class="mb-1">{{ veiculo.categoria.value }} · {{ veiculo.transmissao.value }} · {{ veiculo.lugares }} lugares</p>
+        <p class="lw-preco">{{ veiculo.valor_diaria_centimos|euros }} <small>/ dia</small></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    {% if resumo %}
+      {# ---------- PASSO 2: resumo + pagamento (simulado) ---------- #}
+      <div class="lw-caixa">
+        <h4>Confirma a tua reserva</h4>
+        <table class="table">
+          <tr><th>Levantamento</th><td>{{ resumo.inicio|data_pt }}</td></tr>
+          <tr><th>Devolução</th><td>{{ resumo.fim|data_pt }}</td></tr>
+          <tr><th>Cálculo</th><td>{{ veiculo.valor_diaria_centimos|euros }} × {{ resumo.dias }} dia(s)</td></tr>
+          <tr><th>Pagamento</th><td>{{ resumo.forma.nome }}</td></tr>
+          <tr class="lw-total"><th>Total</th><td>{{ resumo.total_centimos|euros }}</td></tr>
+        </table>
+        <form method="post" action="/reservas">
+          <input type="hidden" name="veiculo_id" value="{{ veiculo.id }}">
+          <input type="hidden" name="forma_pagamento_id" value="{{ resumo.forma.id }}">
+          <input type="hidden" name="data_inicio" value="{{ resumo.inicio.isoformat() }}">
+          <input type="hidden" name="data_fim" value="{{ resumo.fim.isoformat() }}">
+          <button class="btn lw-btn btn-lg">Pagar e concluir</button>
+          <a class="btn btn-link" href="/reservas/nova/{{ veiculo.id }}?data_inicio={{ data_inicio }}&data_fim={{ data_fim }}">Voltar</a>
+        </form>
+        <p class="small text-muted mt-3">Pagamento simulado: nenhum dado bancário é pedido ou guardado.</p>
+      </div>
+    {% else %}
+      {# ---------- PASSO 1: datas + forma de pagamento ---------- #}
+      <form method="post" action="/reservas/resumo" class="lw-caixa">
+        <h4>Reservar</h4>
+        <input type="hidden" name="veiculo_id" value="{{ veiculo.id }}">
+        <div class="form-row">
+          <div class="col-sm-6 mb-2">
+            <label>Data de início</label>
+            <input class="form-control" type="date" name="data_inicio" min="{{ hoje }}" value="{{ data_inicio }}" required>
+          </div>
+          <div class="col-sm-6 mb-2">
+            <label>Data de fim</label>
+            <input class="form-control" type="date" name="data_fim" min="{{ hoje }}" value="{{ data_fim }}" required>
+          </div>
+        </div>
+        <label class="mt-2">Forma de pagamento</label>
+        {% for forma in formas %}
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="forma_pagamento_id" id="fp{{ forma.id }}" value="{{ forma.id }}" {% if loop.first %}checked{% endif %} required>
+            <label class="form-check-label" for="fp{{ forma.id }}">{{ forma.nome }}</label>
+          </div>
+        {% endfor %}
+        <button class="btn lw-btn mt-3">Ver total</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

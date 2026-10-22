@@ -2,26 +2,23 @@ from enum import StrEnum
 
 
 class Categoria(StrEnum):
-    PEQUENO = "pequeno"
-    MEDIO = "medio"
-    GRANDE = "grande"
+    PEQUENO = "Pequeno"
+    MEDIO = "Médio"
+    GRANDE = "Grande"
     SUV = "SUV"
-    LUXO = "luxo"
+    LUXO = "Luxo"
 
 
-class Trasmissao(StrEnum):
-    AUTOMATICO = "automatico"
-    MANUAL = "manual"
+class Transmissao(StrEnum):
+    AUTOMATICO = "Automático"
+    MANUAL = "Manual"
 
 
 class TipoVeiculo(StrEnum):
-    CARRO = "carro"
-    MOTO = "moto"
+    CARRO = "Carro"
+    MOTO = "Moto"
 
 
 class EstadoReserva(StrEnum):
     ATIVA = "ativa"
     CANCELADA = "cancelada"
-
-    
-    

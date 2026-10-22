@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Aluguer de viaturas{% endblock %} · Luxury Wheels</title>
+  <link rel="icon" href="/assets/images/favicon.jpg">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand navbar-dark lw-nav">
+    <div class="container flex-wrap">
+      <a class="navbar-brand lw-marca" href="/"><i class="fa fa-car"></i> Luxury<span>Wheels</span></a>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="/veiculos">Veículos</a></li>
+        {% if request.session.get("cliente_id") %}
+          <li class="nav-item"><a class="nav-link" href="/reservas/minhas">As minhas reservas</a></li>
+        {% endif %}
+        <li class="nav-item"><a class="nav-link" href="/contacto">Contacto</a></li>
+      </ul>
+      <ul class="navbar-nav align-items-center">
+        {% if request.session.get("cliente_id") %}
+          <li class="nav-item mr-2 text-light small">Olá, {{ request.session.get("cliente_nome") }}</li>
+          <li class="nav-item">
+            <form method="post" action="/logout" class="m-0">
+              <button class="btn btn-sm btn-outline-light">Sair</button>
+            </form>
+          </li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="/login">Entrar</a></li>
+          <li class="nav-item"><a class="btn btn-sm lw-btn ml-2" href="/registo">Criar conta</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  {% block hero %}{% endblock %}
+
+  <main class="container py-4">
+    {% include "partials/_mensagens.html" %}
+    {% block conteudo %}{% endblock %}
+  </main>
+
+  <footer class="lw-footer">
+    <div class="container d-flex flex-wrap justify-content-between">
+      <span>© Luxury Wheels · Projeto Final Tokio School</span>
+      <span>FastAPI · SQLAlchemy · SQLite</span>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block titulo %}Alterar reserva{% endblock %}
+
+{% block conteudo %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <form method="post" action="/reservas/{{ reserva.id }}/alterar" class="lw-caixa">
+      <h4>Alterar datas da reserva n.º {{ reserva.id }}</h4>
+      <p>{{ reserva.veiculo.marca }} {{ reserva.veiculo.modelo }} · {{ reserva.veiculo.valor_diaria_centimos|euros }} / dia</p>
+      <p class="small text-muted">Só é possível alterar as datas. O total é recalculado automaticamente.</p>
+      <label>Nova data de início</label>
+      <input class="form-control mb-2" type="date" name="data_inicio" min="{{ hoje }}" value="{{ reserva.data_inicio.isoformat() }}" required>
+      <label>Nova data de fim</label>
+      <input class="form-control mb-3" type="date" name="data_fim" min="{{ hoje }}" value="{{ reserva.data_fim.isoformat() }}" required>
+      <button class="btn lw-btn">Guardar alterações</button>
+      <a class="btn btn-link" href="/reservas/minhas">Voltar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

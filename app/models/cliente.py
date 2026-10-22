@@ -18,8 +18,6 @@ class Cliente(Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     password_hash: Mapped[str] = mapped_column(String(255))
     telefone: Mapped[str | None] = mapped_column(String(20))
-    criado_em: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
+    criado_em: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
     reservas: Mapped[list["Reserva"]] = relationship(back_populates="cliente")
