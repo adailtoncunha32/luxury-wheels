@@ -1,0 +1,18 @@
+# Ambiente virtual
+.venv/
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+
+# Segredos — NUNCA vão para o GitHub
+.env
+
+# Base de dados local (cada pessoa gera a sua)
+*.db
+*.sqlite3
+
+# Ferramentas
+.pytest_cache/
+.ruff_cache/
+.idea/

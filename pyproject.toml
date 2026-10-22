@@ -1,0 +1,20 @@
+[project]
+name = "luxury-wheels"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Adailton Cunha" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.157.0",
+]
+
+
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.17.1",
+]
